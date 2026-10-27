@@ -7,7 +7,7 @@
 /* CES Europe brand: blue accents, light editorial surfaces and navy panels. */
 
 @theme inline {
-  --font-display: "Poppins", system-ui, sans-serif;
+  --font-display: "Anton", "Archivo Black", Impact, sans-serif;
   --font-sans: "Roboto", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 1px);
   --radius-md: var(--radius);
