@@ -14,9 +14,13 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ItemProductRouteImport } from './routes/item.$product'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsCategoryRouteImport } from './routes/products.$category'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesAdviceRouteImport } from './routes/services.advice'
+import { Route as ServicesServicingRouteImport } from './routes/services.servicing'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,6 +47,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ItemProductRoute = ItemProductRouteImport.update({
   id: '/item/$product',
   path: '/item/$product',
@@ -58,6 +67,21 @@ const ProductsCategoryRoute = ProductsCategoryRouteImport.update({
   path: '/products/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesAdviceRoute = ServicesAdviceRouteImport.update({
+  id: '/services/advice',
+  path: '/services/advice',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesServicingRoute = ServicesServicingRouteImport.update({
+  id: '/services/servicing',
+  path: '/services/servicing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,9 +89,13 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/item/$product': typeof ItemProductRoute
   '/products/$category': typeof ProductsCategoryRoute
+  '/services/advice': typeof ServicesAdviceRoute
+  '/services/servicing': typeof ServicesServicingRoute
   '/products/': typeof ProductsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +103,13 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/item/$product': typeof ItemProductRoute
   '/products/$category': typeof ProductsCategoryRoute
+  '/services/advice': typeof ServicesAdviceRoute
+  '/services/servicing': typeof ServicesServicingRoute
   '/products': typeof ProductsIndexRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +118,13 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/item/$product': typeof ItemProductRoute
   '/products/$category': typeof ProductsCategoryRoute
+  '/services/advice': typeof ServicesAdviceRoute
+  '/services/servicing': typeof ServicesServicingRoute
   '/products/': typeof ProductsIndexRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,9 +134,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookies'
     | '/privacy'
+    | '/terms'
     | '/item/$product'
     | '/products/$category'
+    | '/services/advice'
+    | '/services/servicing'
     | '/products/'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,9 +148,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookies'
     | '/privacy'
+    | '/terms'
     | '/item/$product'
     | '/products/$category'
+    | '/services/advice'
+    | '/services/servicing'
     | '/products'
+    | '/services'
   id:
     | '__root__'
     | '/'
@@ -118,9 +162,13 @@ export interface FileRouteTypes {
     | '/contact'
     | '/cookies'
     | '/privacy'
+    | '/terms'
     | '/item/$product'
     | '/products/$category'
+    | '/services/advice'
+    | '/services/servicing'
     | '/products/'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,9 +177,13 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
   PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   ItemProductRoute: typeof ItemProductRoute
   ProductsCategoryRoute: typeof ProductsCategoryRoute
+  ServicesAdviceRoute: typeof ServicesAdviceRoute
+  ServicesServicingRoute: typeof ServicesServicingRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -171,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/item/$product': {
       id: '/item/$product'
       path: '/item/$product'
@@ -192,6 +251,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/advice': {
+      id: '/services/advice'
+      path: '/services/advice'
+      fullPath: '/services/advice'
+      preLoaderRoute: typeof ServicesAdviceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/servicing': {
+      id: '/services/servicing'
+      path: '/services/servicing'
+      fullPath: '/services/servicing'
+      preLoaderRoute: typeof ServicesServicingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -201,9 +281,13 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
   PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   ItemProductRoute: ItemProductRoute,
   ProductsCategoryRoute: ProductsCategoryRoute,
+  ServicesAdviceRoute: ServicesAdviceRoute,
+  ServicesServicingRoute: ServicesServicingRoute,
   ProductsIndexRoute: ProductsIndexRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
