@@ -6,7 +6,9 @@ export const Route = createFileRoute("/item/$product")({
   loader: ({ params }) => {
     const product = getProduct(params.product);
     if (!product) throw notFound();
-    return { product, category: getCategory(product.category)! };
+    const category = getCategory(product.category);
+    if (!category) throw notFound();
+    return { product, category };
   },
   head: ({ loaderData }) => ({
     meta: loaderData

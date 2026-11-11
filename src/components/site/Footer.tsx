@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Twitter } from "lucide-react";
-import { company } from "@/lib/catalog";
+import { categories, company } from "@/lib/catalog";
 import { ContactLines } from "./Blocks";
 
 export function Footer() {
   return (
     <footer className="inverse border-t border-border bg-deep">
       <div className="container-x grid gap-12 py-16 md:grid-cols-4">
-        <div className="md:col-span-2">
+        <div>
           <img
             src="/ces-logo.svg"
             alt="CES Europe"
@@ -19,6 +19,22 @@ export function Footer() {
           <p className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
             Official Paoli agent
           </p>
+        </div>
+        <div>
+          <p className="eyebrow">Products</p>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">{categories.map(c => <li key={c.slug}><Link to="/products/$category" params={{ category: c.slug }} className="hover:text-foreground">{c.name}</Link></li>)}</ul>
+        </div>
+        <div>
+          <p className="eyebrow">Company</p>
+          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+            <li><Link to="/about" className="hover:text-foreground">About Us</Link></li>
+            <li><Link to="/services/servicing" className="hover:text-foreground">Servicing and Repair</Link></li>
+            <li><Link to="/services/advice" className="hover:text-foreground">Advice and Consultation</Link></li>
+            <li><Link to="/contact" className="hover:text-foreground">Contact Us</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="eyebrow">Contact</p>
           <address className="mt-6 not-italic leading-relaxed text-muted-foreground">
             {company.name}
             <br />
@@ -29,48 +45,7 @@ export function Footer() {
             {company.country}
           </address>
           <ContactLines className="mt-5 text-sm text-muted-foreground" />
-        </div>
-        <div>
-          <p className="eyebrow">Quick links</p>
-          <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
-            <li>
-              <Link to="/about" className="hover:text-foreground">
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link to="/products" className="hover:text-foreground">
-                Product Range
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/products/$category"
-                params={{ category: "paoli-wheel-guns" }}
-                className="hover:text-foreground"
-              >
-                Paoli Wheel Guns
-              </Link>
-            </li>
-            <li>
-              <Link to="/services/servicing" className="hover:text-foreground">
-                Servicing and Repair
-              </Link>
-            </li>
-            <li>
-              <Link to="/services/advice" className="hover:text-foreground">
-                Advice and Consultation
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" className="hover:text-foreground">
-                Contact Us
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <p className="eyebrow">Follow</p>
+          <p className="eyebrow mt-6">Follow</p>
           <div className="mt-5 flex gap-3">
             {[
               { href: company.socials.facebook, Icon: Facebook, label: "Facebook" },
