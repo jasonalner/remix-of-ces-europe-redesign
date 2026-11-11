@@ -11,6 +11,8 @@ export const Route = createFileRoute("/item/$product")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
+           { property: "og:type", content: "website" },
+           { name: "twitter:card", content: "summary_large_image" },
           { title: `${loaderData.product.name} | ${loaderData.category.name} | CES Europe Ltd` },
           {
             name: "description",

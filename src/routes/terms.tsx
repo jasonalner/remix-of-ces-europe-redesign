@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { LegalPage } from "@/components/site/BoardBlocks";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Terms | CES Europe Ltd" },
       { name: "description", content: "Terms of use for the CES Europe Ltd website." },
       { property: "og:title", content: "Terms | CES Europe Ltd" },
@@ -10,11 +13,8 @@ export const Route = createFileRoute("/terms")({
     ],
   }),
   component: () => (
-    <section className="container-x section-y max-w-3xl pt-32">
-      <p className="eyebrow">Legal</p>
-      <h1 className="mt-4 text-4xl font-bold">Terms</h1>
-      {/* TODO(client): terms text to be supplied or approved by CES Europe Ltd. */}
+    <LegalPage title="Terms">
       <p className="mt-6 text-muted-foreground">Full terms to be supplied by CES Europe Ltd.</p>
-    </section>
+    </LegalPage>
   ),
 });

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ContactForm, ContactLines, PageHero } from "@/components/site/Blocks";
+import { ContactForm, ContactLines } from "@/components/site/Blocks";
 import { company } from "@/lib/catalog";
-import pitstop from "@/assets/pitstop.jpg";
+import { TitleBand } from "@/components/site/BoardBlocks";
 
 export const Route = createFileRoute("/contact")({
   validateSearch: (s: Record<string, unknown>): { product?: string | undefined } => ({
@@ -9,6 +9,8 @@ export const Route = createFileRoute("/contact")({
   }),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Contact Us | CES Europe Ltd, Banbury" },
       {
         name: "description",
@@ -23,36 +25,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
-  const { product } = Route.useSearch();
-  return (
-    <>
-      <PageHero
-        eyebrow="Contact Us"
-        title="Talk to the pit lane specialists"
-        image={pitstop}
-        imageAlt="Pit crew changing a wheel on a single-seater race car in the pit lane"
-      />
-      <section className="section-y">
-        <div className="container-x grid gap-14 lg:grid-cols-3">
-          <div>
-            <p className="eyebrow">Find us</p>
-            <address className="mt-5 not-italic leading-relaxed text-muted-foreground">
-              <span className="text-foreground">{company.name}</span>
-              <br />
-              {company.street}
-              <br />
-              {company.town}, {company.postcode}
-              <br />
-              {company.country}
-            </address>
-            <ContactLines className="mt-6 text-muted-foreground" />
-            {/* TODO(client): opening hours and a map embed. */}
-          </div>
-          <div className="lg:col-span-2">
-            <ContactForm product={product} />
-          </div>
-        </div>
-      </section>
-    </>
-  );
+ const { product } = Route.useSearch();
+ return <><TitleBand eyebrow="Contact Us" title="Talk to the pit lane specialists"/>
+ <section className="section-y"><div className="container-x grid gap-12 lg:grid-cols-2"><div><h2 className="text-3xl font-bold">Send enquiry</h2><div className="mt-8"><ContactForm product={product} singleColumn/></div></div><div><h2 className="text-3xl font-bold">Find us</h2><div className="mt-8 space-y-4"><div className="border border-border p-6"><ContactLines className="text-muted-foreground"/></div><div className="border border-border p-6"><h3 className="font-semibold">Address</h3><address className="mt-3 not-italic leading-relaxed text-muted-foreground"><span className="text-foreground">{company.name}</span><br/>{company.street}<br/>{company.town}, {company.postcode}<br/>{company.country}</address></div><div className="border border-border p-6"><h3 className="font-semibold">Opening hours</h3><p className="mt-3 text-muted-foreground">Opening hours to be confirmed by CES Europe.</p></div></div></div></div></section>
+ <section className="border-t border-border bg-surface py-12"><div className="container-x"><iframe title="CES Europe, Penhill Industrial Park, Banbury" src="https://maps.google.com/maps?q=Unit%204%2C%20Penhill%20Industrial%20Park%2C%20Beaumont%20Road%2C%20Banbury%2C%20OX16%201RW&output=embed" loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="h-80 w-full border border-border md:h-96"/><a href="https://www.google.com/maps/search/?api=1&query=Penhill+Industrial+Park+Banbury+OX16+1RW" target="_blank" rel="noreferrer" className="mt-4 inline-block text-sm text-primary hover:underline">{company.street}, {company.town}, {company.postcode}</a></div></section></>;
 }

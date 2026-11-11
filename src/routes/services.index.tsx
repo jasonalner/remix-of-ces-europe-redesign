@@ -8,6 +8,8 @@ import pitstop from "@/assets/pitstop.jpg";
 export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Services | CES Europe Ltd" },
       {
         name: "description",
