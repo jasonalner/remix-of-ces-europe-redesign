@@ -48,14 +48,6 @@ export function Header() {
           </span>
         </Link>
         <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
-          <Link
-            to="/"
-            className={navLink}
-            activeProps={{ className: "text-foreground" }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>
           <Link to="/about" className={navLink} activeProps={{ className: "text-foreground" }}>
             About Us
           </Link>
@@ -106,13 +98,10 @@ export function Header() {
               </ul>
             </div>
           </div>
-          <Link to="/contact" className={navLink} activeProps={{ className: "text-foreground" }}>
-            Contact Us
-          </Link>
         </nav>
         <div className="flex items-center gap-3">
           <Button asChild size="lg" className="hidden sm:inline-flex">
-            <Link to="/contact">Enquire</Link>
+            <Link to="/contact">Contact Us</Link>
           </Button>
           <Button
             variant="ghost"

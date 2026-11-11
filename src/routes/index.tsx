@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CategoryTile, ContactBand, SectionHead } from "@/components/site/Blocks";
+import { CategoryTile, SectionHead } from "@/components/site/Blocks";
+import { EnquiryBand } from "@/components/site/BoardBlocks";
 import { Reveal } from "@/components/site/Reveal";
 import { categories, company } from "@/lib/catalog";
 import { proofPoints } from "@/lib/content";
@@ -30,6 +31,8 @@ const localBusiness = {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "CES Europe Ltd | Pit Lane Equipment & Official Paoli Agent" },
       {
         name: "description",
@@ -68,7 +71,7 @@ const services = [
 function Index() {
   return (
     <>
-      <section className="inverse relative flex min-h-[100svh] items-end overflow-hidden">
+      <section className="inverse relative flex min-h-[min(720px,82svh)] items-end overflow-hidden">
         <img
           src={hero.url}
           alt="Alpine endurance racing team changing tyres during a pit stop"
@@ -87,6 +90,7 @@ function Index() {
           >
             Pit lane equipment, support and advice.
           </h1>
+          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">Official Paoli wheel gun agent: new guns, servicing, advice and air equipment from 2BAR to 300BAR.</p>
           <div
             className="reveal revealed mt-10 flex flex-wrap gap-4"
             style={{ animationDelay: "240ms" }}
@@ -101,122 +105,13 @@ function Index() {
         </div>
       </section>
 
-      <section className="section-y">
-        <div className="container-x grid gap-12 lg:grid-cols-12">
-          <Reveal className="lg:col-span-5">
-            <p className="eyebrow">Who we are</p>
-            <h2 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">
-              UK based pit equipment specialists
-            </h2>
-          </Reveal>
-          <Reveal className="lg:col-span-6 lg:col-start-7" delay={120}>
-            <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air
-              driven equipment, from 2BAR to 300BAR, for use in all race series. We are the Paoli
-              wheel gun official agent for new sales, servicing and upgrades.
-            </p>
-            <div className="mt-10 grid grid-cols-2 border-t border-border pt-8">
-              <div>
-                <p className="font-display text-3xl font-bold">2–300</p>
-                <p className="mt-1 text-sm uppercase tracking-widest text-muted-foreground">
-                  BAR range
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-3xl font-bold">Banbury</p>
-                <p className="mt-1 text-sm uppercase tracking-widest text-muted-foreground">
-                  Close to the teams
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <section className="section-y"><div className="container-x grid gap-12 lg:grid-cols-2"><Reveal><SectionHead eyebrow="Who we are" title="UK based pit equipment specialists"/><p className="mt-6 text-lg leading-relaxed text-muted-foreground">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series. We are the Paoli wheel gun official agent for new sales, servicing and upgrades.</p></Reveal><Reveal className="grid content-center gap-4" delay={120}>{["Official Paoli agent for new sales, servicing and upgrades", "Banbury — close to the teams", "Air driven equipment, from 2BAR to 300BAR"].map(t => <div key={t} className="border border-border p-6 font-display font-semibold">{t}</div>)}</Reveal></div></section>
+      <section className="section-y border-t border-border"><div className="container-x"><div className="flex flex-wrap items-end justify-between gap-6"><SectionHead eyebrow="Products" title="Built for every stop"/><Button asChild variant="outline"><Link to="/products">Our Products <ArrowRight className="size-4"/></Link></Button></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{["paoli-wheel-guns", "compressors", "fittings", "hoses", "extraction-systems"].map(slug => { const c = categories.find(c => c.slug === slug); return c ? <CategoryTile key={c.slug} category={c}/> : null; })}</div></div></section>
+      <section className="section-y border-y border-border bg-surface"><div className="container-x"><h2 className="text-center text-3xl font-bold md:text-5xl">Engineering you can trust in the pit lane</h2><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5"><div className="border border-border bg-card p-5"><h3 className="font-semibold">Official Paoli agent</h3><p className="mt-3 text-sm text-muted-foreground">New sales, servicing and upgrades.</p></div>{proofPoints.map(p => <div key={p.t} className="border border-border bg-card p-5"><h3 className="font-semibold">{p.t}</h3><p className="mt-3 text-sm text-muted-foreground">{p.d}</p></div>)}</div></div></section>
+      <section className="section-y"><div className="container-x"><SectionHead eyebrow="Services" title="Support that goes beyond the box"/><div className="mt-10 grid gap-6 lg:grid-cols-2">{services.map(s => <article key={s.to} className="grid overflow-hidden border border-border bg-card sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"><img src={s.image} alt="" loading="lazy" className="h-full min-h-48 w-full object-cover"/><div className="p-6"><p className="eyebrow">{s.eyebrow}</p><h3 className="mt-3 text-2xl font-semibold">{s.title}</h3><p className="mt-3 text-muted-foreground">{s.text}</p><Button asChild variant="outline" className="mt-6"><Link to={s.to}>Find out more <ArrowRight className="size-4"/></Link></Button></div></article>)}</div></div></section>
+      <section className="section-y border-t border-border"><div className="container-x grid items-center gap-12 lg:grid-cols-2"><img src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" loading="lazy" className="aspect-[4/3] w-full object-cover"/><div><SectionHead eyebrow="Why CES Europe" title="Pit equipment, support and advice"/><p className="mt-6 text-lg text-muted-foreground">Our small team is based in Banbury, geographically close to many of the UK's top motorsport teams, which makes site visits easy.</p><Button asChild variant="outline" size="lg" className="mt-8"><Link to="/about">About CES Europe</Link></Button></div></div></section>
+      <EnquiryBand call />
 
-      <section className="section-y border-t border-border pt-16 md:pt-24">
-        <div className="container-x">
-          <Reveal>
-            <SectionHead eyebrow="Services" title="Support that goes beyond the box" />
-          </Reveal>
-          <div className="mt-12 grid gap-px bg-border md:grid-cols-2">
-            {services.map((s, i) => (
-              <Reveal key={s.to} delay={i * 100}>
-                <Link
-                  to={s.to}
-                  className="inverse group relative flex min-h-[26rem] flex-col justify-end overflow-hidden bg-surface p-8 md:aspect-[4/3] md:min-h-0 md:p-10"
-                >
-                  <img
-                    src={s.image}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-50"
-                  />
-                  <div className="absolute inset-0 bg-overlay" />
-                  <div className="relative max-w-md">
-                    <p className="eyebrow">{s.eyebrow}</p>
-                    <h3 className="mt-3 text-2xl font-semibold md:text-3xl">{s.title}</h3>
-                    <p className="mt-3 text-muted-foreground">{s.text}</p>
-                    <span className="mt-5 inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.18em] transition-colors group-hover:text-primary">
-                      Find out more{" "}
-                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-y border-t border-border pt-16 md:pt-24">
-        <div className="container-x">
-          <Reveal>
-            <SectionHead eyebrow="Products" title="Built for every stop" />
-          </Reveal>
-          <div className="mt-12 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((c, i) => (
-              <Reveal key={c.slug} delay={(i % 4) * 80}>
-                <CategoryTile category={c} />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative overflow-hidden">
-        <div className="grid lg:grid-cols-2">
-          <img
-            src={pitstop}
-            alt="Pit crew changing a wheel on a single-seater race car in the pit lane"
-            loading="lazy"
-            width={1920}
-            height={1088}
-            className="aspect-[4/3] h-full w-full object-cover"
-          />
-          <div className="inverse section-y relative flex items-center overflow-hidden bg-deep">
-            <Swoosh className="absolute -right-20 top-1/2 h-[120%] -translate-y-1/2 text-primary opacity-10" />
-            <Reveal className="container-x relative max-w-xl lg:mx-16">
-              <p className="eyebrow">Why CES Europe</p>
-              <h2 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">
-                Engineering you can trust in the pit lane
-              </h2>
-              <ul className="mt-8 space-y-5">
-                {proofPoints.map((p) => (
-                  <li key={p.t}>
-                    <p className="font-display text-lg font-semibold">{p.t}</p>
-                    <p className="mt-1 text-muted-foreground">{p.d}</p>
-                  </li>
-                ))}
-              </ul>
-              <Button asChild size="lg" variant="outline" className="mt-10">
-                <Link to="/about">About CES Europe</Link>
-              </Button>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <ContactBand />
     </>
   );
 }

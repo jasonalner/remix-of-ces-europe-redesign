@@ -68,29 +68,25 @@ export function PlaceholderNote({ children }: { children: ReactNode }) {
 export function CategoryTile({
   category,
   label,
+  description = false,
 }: {
   category: Category;
+  description?: boolean;
   label?: string | undefined;
 }) {
   return (
     <Link
       to="/products/$category"
       params={{ category: category.slug }}
-      className="inverse group relative block aspect-[4/3] overflow-hidden bg-surface"
+      className="group flex h-full flex-col overflow-hidden border border-border bg-card"
     >
-      <img
-        src={category.image}
-        alt=""
-        loading="lazy"
-        className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-60"
-      />
-      <div className="absolute inset-0 bg-overlay" />
-      <div className="absolute inset-x-0 bottom-0 p-6">
-        <h3 className="text-xl font-semibold md:text-2xl">{label ?? category.name}</h3>
-        <span className="mt-3 inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.18em] text-muted-foreground transition-colors group-hover:text-primary">
-          View more{" "}
-          <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
-        </span>
+      <div className="inverse relative aspect-[16/9] overflow-hidden bg-surface">
+        <img src={category.image} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      </div>
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="text-xl font-semibold">{label ?? category.name}</h3>
+        {description && <p className="mt-3 text-sm text-muted-foreground">{category.intro}</p>}
+        <span className="mt-4 inline-flex items-center gap-2 font-display text-xs uppercase tracking-[0.18em] text-brand-link">View more <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" /></span>
       </div>
     </Link>
   );
@@ -102,7 +98,7 @@ export function ProductCard({ product, image }: { product: Product; image: strin
       <Link
         to="/item/$product"
         params={{ product: product.id }}
-        className="block aspect-square overflow-hidden bg-background"
+        className="block aspect-[16/9] overflow-hidden bg-background"
         aria-label={product.name}
       >
         <img
@@ -154,8 +150,10 @@ export function EnquiryForm({
   fields,
   submitLabel = "Send enquiry",
   successMessage = "Thank you. Your enquiry has been received and we will be in touch.",
+  singleColumn = false,
 }: {
   fields: EnquiryField[];
+  singleColumn?: boolean;
   submitLabel?: string;
   successMessage?: string;
 }) {
@@ -169,7 +167,7 @@ export function EnquiryForm({
     );
   return (
     <form
-      className="grid gap-4 sm:grid-cols-2"
+      className={cn("grid gap-4", !singleColumn && "sm:grid-cols-2")}
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -179,9 +177,9 @@ export function EnquiryForm({
     >
       {fields.map((f) => {
         const id = `${uid}-${f.name}`;
-        const wrap = cn(f.wide || f.type === "textarea" ? "sm:col-span-2" : "");
+        const wrap = cn(!singleColumn && (f.wide || f.type === "textarea") ? "sm:col-span-2" : "");
         const label = (
-          <label className="sr-only" htmlFor={id}>
+          <label className="mb-2 block text-sm font-medium" htmlFor={id}>
             {f.label}
             {f.required ? "" : " (optional)"}
           </label>
@@ -248,7 +246,7 @@ export function EnquiryForm({
         className="hidden"
         aria-hidden
       />
-      <div className="sm:col-span-2">
+      <div className={singleColumn ? "" : "sm:col-span-2"}>
         <Button type="submit" size="lg">
           {submitLabel}
         </Button>
@@ -257,15 +255,17 @@ export function EnquiryForm({
   );
 }
 
-export function ContactForm({ product }: { product?: string | undefined }) {
+export function ContactForm({ product, singleColumn = false }: { product?: string | undefined; singleColumn?: boolean }) {
   return (
     <EnquiryForm
       submitLabel="Send enquiry"
+      singleColumn={singleColumn}
       fields={[
         { name: "name", label: "Name", required: true },
+        { name: "team", label: "Team or series" },
+        { name: "email", label: "Email", type: "email", required: true },
         { name: "phone", label: "Phone", type: "tel" },
-        { name: "email", label: "Email", type: "email", required: true, wide: true },
-        { name: "team", label: "Team or series", wide: true },
+        ...(product ? [{ name: "product", label: "Product(s) of interest", defaultValue: product, wide: true }] : []),
         {
           name: "message",
           label: "Message",
