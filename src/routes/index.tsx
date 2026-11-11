@@ -7,7 +7,7 @@ import { categories, company } from "@/lib/catalog";
 import { proofPoints } from "@/lib/content";
 import { Swoosh } from "@/components/site/Swoosh";
 import servicingPhoto from "@/assets/ces/servicing.jpg.asset.json";
-import hero from "@/assets/hero.jpg";
+import hero from "@/assets/ces/alpine-pit-stop.jpeg.asset.json";
 import pitstop from "@/assets/pitstop.jpg";
 
 const localBusiness = {
@@ -69,12 +69,11 @@ function Index() {
   return (
     <>
       <section className="inverse relative flex min-h-[100svh] items-end overflow-hidden">
-        {/* TODO(client): replace with Ollie's original pit stop photography (full resolution). */}
         <img
-          src={hero}
-          alt="Pit lane at dusk with crews servicing single-seater race cars"
-          width={1920}
-          height={1088}
+          src={hero.url}
+          alt="Alpine endurance racing team changing tyres during a pit stop"
+          width={1024}
+          height={683}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-overlay-side" />
