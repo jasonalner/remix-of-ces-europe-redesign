@@ -11,3 +11,7 @@
 
 ## Presentation
 - Define colours centrally in semantic CSS tokens; apply the local `inverse` theme to navy panels and image overlays so their text, borders and controls remain legible independently of the light page theme.
+
+## Page composition
+- Use shared BoardBlocks for breadcrumb/title bands, compact enquiry bands, process bands and legal layouts so the wireframe-based pages share consistent structure without duplicating theme values.
+- Treat wireframe boards as structure only: map existing copy and assets into their slots, never invent approvals, team portraits, specifications, policy wording or download links to fill missing content.
