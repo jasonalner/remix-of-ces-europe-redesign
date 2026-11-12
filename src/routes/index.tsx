@@ -83,8 +83,8 @@ function Index() {
         <Swoosh className="absolute -right-[18vw] -top-[10vh] h-[120%] text-primary opacity-[0.18]" />
         <div className="container-x relative pb-16 pt-40 md:pb-24">
           <p className="label-num reveal revealed">CES Europe, Official Paoli Agent</p>
-          <h1 className="display-xl reveal revealed mt-6 max-w-5xl text-[13vw] md:text-[6.5rem]" style={{ animationDelay: "120ms" }}>
-            Pit lane <span className="em-serif text-brand-link">equipment,</span> support and advice.
+          <h1 className="display-xl reveal revealed mt-6 max-w-5xl text-[9.5vw] md:text-[4.75rem]" style={{ animationDelay: "120ms" }}>
+            Pit lane <span className="text-brand-link">equipment,</span> support and advice.
           </h1>
           <div className="reveal revealed mt-10 grid gap-8 border-t border-border pt-8 md:grid-cols-[1fr_auto] md:items-end" style={{ animationDelay: "240ms" }}>
             <p className="max-w-xl text-lg text-muted-foreground">Official Paoli wheel gun agent: new guns, servicing, advice and air equipment from 2BAR to 300BAR.</p>
@@ -97,16 +97,16 @@ function Index() {
       </section>
 
       {/* 02 Who we are — serif opening statement + offset collage */}
-      <section className="section-y overflow-hidden">
+      <section className="inverse section-y overflow-hidden bg-background">
         <div className="container-x grid gap-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-6">
             <p className="label-num">01 — Who we are</p>
-            <h2 className="display-xl mt-6 text-5xl md:text-6xl">UK based pit equipment <span className="em-serif text-primary">specialists</span></h2>
-            <p className="mt-10 font-serif text-3xl leading-[1.2] text-deep md:text-4xl">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series.</p>
+            <h2 className="display-xl mt-6 text-5xl text-foreground md:text-6xl">UK based pit equipment <span className="text-brand-link">specialists</span></h2>
+            <p className="mt-10 font-serif text-3xl leading-[1.2] text-foreground md:text-4xl">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series.</p>
             <p className="mt-6 max-w-lg text-muted-foreground">We are the Paoli wheel gun official agent for new sales, servicing and upgrades.</p>
             <ul className="mt-10 divide-y divide-border border-y border-border">
               {["Official Paoli agent for new sales, servicing and upgrades", "Banbury — close to the teams", "Air driven equipment, from 2BAR to 300BAR"].map((t, i) => (
-                <li key={t} className="flex items-baseline gap-6 py-5 font-display font-medium text-deep"><span className="label-num">0{i + 1}</span>{t}</li>
+                <li key={t} className="flex items-baseline gap-6 py-5 font-display font-medium text-foreground"><span className="label-num">0{i + 1}</span>{t}</li>
               ))}
             </ul>
           </Reveal>
@@ -124,7 +124,7 @@ function Index() {
         <div className="band-run flex w-max whitespace-nowrap">
           {[0, 1].map((k) => (
             <span key={k} className="display-xl pr-16 text-[14vw] text-deep md:text-[9rem]">
-              CES Europe, <span className="em-serif text-primary">Official</span> Paoli Agent —&nbsp;
+              CES Europe, <span className="text-primary">Official</span> Paoli Agent —&nbsp;
             </span>
           ))}
         </div>
@@ -134,7 +134,7 @@ function Index() {
       <section className="section-y">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <div><p className="label-num">02 — Products</p><h2 className="display-xl mt-6 text-5xl md:text-7xl">Built for <span className="em-serif text-primary">every</span> stop</h2></div>
+            <div><p className="label-num">02 — Products</p><h2 className="display-xl mt-6 text-5xl md:text-7xl">Built for <span className="text-primary">every</span> stop</h2></div>
             <Button asChild variant="outline"><Link to="/products">Our Products <ArrowRight /></Link></Button>
           </div>
           <ul className="mt-16 border-t border-border">
@@ -160,7 +160,7 @@ function Index() {
         <div className="container-x relative py-32 md:py-48">
           <Reveal>
             <p className="label-num">03 — Engineering</p>
-            <h2 className="mt-8 max-w-5xl font-serif text-5xl italic leading-[1.05] md:text-8xl">Engineering you can trust in the pit lane.</h2>
+            <h2 className="mt-8 max-w-5xl font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-7xl">Engineering you can trust in the pit lane.</h2>
           </Reveal>
           <div className="mt-20 grid border-t border-border sm:grid-cols-2 lg:grid-cols-5 lg:divide-x lg:divide-border">
             {[{ t: "Official Paoli agent", d: "New sales, servicing and upgrades." }, ...proofPoints].map((p, i) => (
@@ -177,7 +177,7 @@ function Index() {
       <section className="section-y">
         <div className="container-x">
           <p className="label-num">04 — Services</p>
-          <h2 className="display-xl mt-6 max-w-3xl text-5xl md:text-7xl">Support that goes <span className="em-serif text-primary">beyond</span> the box</h2>
+          <h2 className="display-xl mt-6 max-w-3xl text-5xl md:text-7xl">Support that goes <span className="text-primary">beyond</span> the box</h2>
           <div className="mt-20 grid gap-20 lg:grid-cols-2 lg:gap-12">
             {services.map((s, i) => (
               <Reveal key={s.to} delay={i * 150} className={i === 1 ? "lg:mt-40" : ""}>
@@ -202,7 +202,7 @@ function Index() {
           <Parallax src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" className="aspect-[4/3] lg:col-span-7" />
           <Reveal className="lg:col-span-5 lg:-ml-24 lg:bg-background lg:p-12 relative">
             <p className="label-num">05 — Why CES Europe</p>
-            <h2 className="display-xl mt-6 text-4xl md:text-5xl">Pit equipment, support and <span className="em-serif text-primary">advice</span></h2>
+            <h2 className="display-xl mt-6 text-4xl md:text-5xl">Pit equipment, support and <span className="text-primary">advice</span></h2>
             <p className="mt-6 text-lg text-muted-foreground">Our small team is based in Banbury, geographically close to many of the UK's top motorsport teams, which makes site visits easy.</p>
             <Button asChild variant="outline" size="lg" className="mt-8"><Link to="/about">About CES Europe</Link></Button>
           </Reveal>

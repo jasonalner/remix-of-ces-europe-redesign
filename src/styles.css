@@ -131,7 +131,6 @@
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; } .revealed { animation: none; } }
 
 /* Editorial system */
-@utility em-serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.01em; }
 @utility display-xl { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; }
 @utility label-num { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--eyebrow); }
 @keyframes slow-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
