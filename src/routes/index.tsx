@@ -121,12 +121,12 @@ function Index() {
       </section>
 
       {/* Typographic band running off the edge */}
-      <section aria-hidden="true" className="inverse overflow-hidden border-y border-border bg-surface py-4">
+      <section aria-hidden="true" className="inverse overflow-hidden border-y border-border bg-surface py-6 md:py-8">
         <div className="band-run flex w-max whitespace-nowrap">
           {[0, 1].map((k) => (
             <div key={k} className="flex shrink-0">
-              {Array.from({ length: 8 }).map((_, j) => (
-                <span key={j} className="px-8 font-display text-xs font-medium uppercase tracking-[0.28em] text-foreground md:text-sm">
+              {Array.from({ length: 4 }).map((_, j) => (
+                <span key={j} className="px-10 font-display text-3xl font-semibold uppercase tracking-[0.1em] text-foreground md:text-5xl">
                   CES Europe, <span className="text-brand-link">Official</span> Paoli Agent —
                 </span>
               ))}

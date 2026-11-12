@@ -135,6 +135,6 @@
 @keyframes slow-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
 @utility hero-zoom { animation: slow-zoom 9s cubic-bezier(.2,.6,.2,1) forwards; }
 @keyframes band { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@utility band-run { animation: band 28s linear infinite; }
+@utility band-run { animation: band 55s linear infinite; }
 @utility img-hover { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
 @media (prefers-reduced-motion: reduce) { .hero-zoom, .band-run { animation: none; } .img-hover { transition: none; } }
