@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EnquiryBand } from "@/components/site/BoardBlocks";
 import { Parallax } from "@/components/site/Parallax";
+import { ProductIndex } from "@/components/site/ProductIndex";
 import { Reveal } from "@/components/site/Reveal";
 import { categories, company } from "@/lib/catalog";
 import { proofPoints } from "@/lib/content";
@@ -102,7 +103,7 @@ function Index() {
           <Reveal className="lg:col-span-6">
             <p className="label-num">01 — Who we are</p>
             <h2 className="display-xl mt-6 text-5xl text-foreground md:text-6xl">UK based pit equipment <span className="text-brand-link">specialists</span></h2>
-            <p className="mt-10 font-serif text-3xl leading-[1.2] text-foreground md:text-4xl">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series.</p>
+            <p className="mt-10 text-2xl font-normal leading-[1.35] text-foreground md:text-3xl">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series.</p>
             <p className="mt-6 max-w-lg text-muted-foreground">We are the Paoli wheel gun official agent for new sales, servicing and upgrades.</p>
             <ul className="mt-10 divide-y divide-border border-y border-border">
               {["Official Paoli agent for new sales, servicing and upgrades", "Banbury — close to the teams", "Air driven equipment, from 2BAR to 300BAR"].map((t, i) => (
@@ -120,36 +121,23 @@ function Index() {
       </section>
 
       {/* Typographic band running off the edge */}
-      <section aria-hidden="true" className="overflow-hidden border-y border-border py-8">
+      <section aria-hidden="true" className="inverse overflow-hidden border-y border-border bg-surface py-4">
         <div className="band-run flex w-max whitespace-nowrap">
           {[0, 1].map((k) => (
-            <span key={k} className="display-xl pr-16 text-[14vw] text-deep md:text-[9rem]">
-              CES Europe, <span className="text-primary">Official</span> Paoli Agent —&nbsp;
-            </span>
+            <div key={k} className="flex shrink-0">
+              {Array.from({ length: 8 }).map((_, j) => (
+                <span key={j} className="px-8 font-display text-xs font-medium uppercase tracking-[0.28em] text-foreground md:text-sm">
+                  CES Europe, <span className="text-brand-link">Official</span> Paoli Agent —
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </section>
 
       {/* 03 Products — single ruled typographic list with image reveal */}
       <section className="section-y">
-        <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div><p className="label-num">02 — Products</p><h2 className="display-xl mt-6 text-5xl md:text-7xl">Built for <span className="text-primary">every</span> stop</h2></div>
-            <Button asChild variant="outline"><Link to="/products">Our Products <ArrowRight /></Link></Button>
-          </div>
-          <ul className="mt-16 border-t border-border">
-            {featured.map((c, i) => (
-              <li key={c.slug} className="border-b border-border">
-                <Link to="/products/$category" params={{ category: c.slug }} className="group grid grid-cols-[3rem_1fr_auto] items-center gap-6 py-7 md:grid-cols-[4rem_1fr_14rem_auto] md:py-9">
-                  <span className="label-num">0{i + 1}</span>
-                  <span className="display-xl text-3xl text-deep transition-all duration-500 group-hover:translate-x-3 group-hover:text-primary md:text-5xl">{c.name}</span>
-                  <span className="hidden h-20 overflow-hidden md:block"><img src={c.image} alt="" loading="lazy" className="img-hover h-full w-full scale-110 object-cover opacity-0 transition-opacity duration-500 group-hover:scale-100 group-hover:opacity-100" /></span>
-                  <ArrowRight className="size-6 text-primary transition-transform duration-500 group-hover:-rotate-45" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ProductIndex items={featured} />
       </section>
 
       {/* 04 Statement over full-bleed cinematic image */}
@@ -178,16 +166,19 @@ function Index() {
         <div className="container-x">
           <p className="label-num">04 — Services</p>
           <h2 className="display-xl mt-6 max-w-3xl text-5xl md:text-7xl">Support that goes <span className="text-primary">beyond</span> the box</h2>
-          <div className="mt-20 grid gap-20 lg:grid-cols-2 lg:gap-12">
+          <div className="mt-16 border-t border-border md:mt-24">
             {services.map((s, i) => (
-              <Reveal key={s.to} delay={i * 150} className={i === 1 ? "lg:mt-40" : ""}>
-                <Link to={s.to} className="group block">
-                  <div className="overflow-hidden"><img src={s.image} alt="" loading="lazy" className="img-hover aspect-[4/5] w-full object-cover group-hover:scale-105" /></div>
-                  <div className="relative -mt-16 ml-6 bg-background p-8 pr-0 md:ml-12">
+              <Reveal key={s.to} className="border-b border-border">
+                <Link to={s.to} className="group grid items-center gap-8 py-12 md:py-20 lg:grid-cols-12 lg:gap-16">
+                  <div className={`relative overflow-hidden lg:col-span-7 ${i === 1 ? "lg:order-2" : ""}`}>
+                    <img src={s.image} alt="" loading="lazy" className="img-hover aspect-[3/2] w-full object-cover group-hover:scale-105" />
+                    <span className="absolute left-0 top-0 bg-deep px-4 py-3 font-display text-xs font-medium tracking-[0.28em] text-white">0{i + 1}</span>
+                  </div>
+                  <div className={`lg:col-span-5 ${i === 1 ? "lg:order-1" : ""}`}>
                     <p className="label-num">{s.eyebrow}</p>
-                    <h3 className="mt-4 font-display text-3xl font-semibold text-deep">{s.title}</h3>
-                    <p className="mt-4 max-w-md text-muted-foreground">{s.text}</p>
-                    <span className="mt-6 inline-flex items-center gap-3 border-b border-primary pb-1 font-display text-xs uppercase tracking-[0.18em] text-primary">Find out more <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></span>
+                    <h3 className="mt-5 font-display text-2xl font-semibold leading-tight text-deep transition-colors duration-300 group-hover:text-primary md:text-4xl">{s.title}</h3>
+                    <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">{s.text}</p>
+                    <span className="mt-8 inline-flex items-center gap-3 border-b border-primary pb-1 font-display text-xs uppercase tracking-[0.18em] text-primary">Find out more <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-2" /></span>
                   </div>
                 </Link>
               </Reveal>
