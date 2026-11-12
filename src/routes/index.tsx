@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CategoryTile, SectionHead } from "@/components/site/Blocks";
 import { EnquiryBand } from "@/components/site/BoardBlocks";
+import { Parallax } from "@/components/site/Parallax";
 import { Reveal } from "@/components/site/Reveal";
 import { categories, company } from "@/lib/catalog";
 import { proofPoints } from "@/lib/content";
@@ -68,50 +68,148 @@ const services = [
   },
 ] as const;
 
+const featured = ["paoli-wheel-guns", "compressors", "fittings", "hoses", "extraction-systems"]
+  .map((slug) => categories.find((c) => c.slug === slug))
+  .filter((c): c is (typeof categories)[number] => Boolean(c));
+
 function Index() {
   return (
     <>
-      <section className="inverse relative flex min-h-[min(720px,82svh)] items-end overflow-hidden">
-        <img
-          src={hero.url}
-          alt="Alpine endurance racing team changing tyres during a pit stop"
-          width={1024}
-          height={683}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+      {/* 01 Hero — navy, slow zoom, serif emphasis */}
+      <section className="inverse relative flex min-h-[100svh] items-end overflow-hidden bg-background">
+        <img src={hero.url} alt="Alpine endurance racing team changing tyres during a pit stop" width={1024} height={683} className="hero-zoom absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-overlay-side" />
-        <div className="absolute inset-0 bg-overlay opacity-60" />
-        <Swoosh className="absolute -right-40 bottom-0 h-[70%] text-primary opacity-[0.12]" />
-        <div className="container-x relative pb-20 pt-32 md:pb-28">
-          <p className="eyebrow revealed reveal">CES Europe, Official Paoli Agent</p>
-          <h1
-            className="reveal revealed mt-5 max-w-4xl text-5xl font-bold leading-[1.02] md:text-7xl"
-            style={{ animationDelay: "120ms" }}
-          >
-            Pit lane equipment, support and advice.
+        <div className="absolute inset-0 bg-overlay opacity-70" />
+        <Swoosh className="absolute -right-[18vw] -top-[10vh] h-[120%] text-primary opacity-[0.18]" />
+        <div className="container-x relative pb-16 pt-40 md:pb-24">
+          <p className="label-num reveal revealed">CES Europe, Official Paoli Agent</p>
+          <h1 className="display-xl reveal revealed mt-6 max-w-5xl text-[13vw] md:text-[6.5rem]" style={{ animationDelay: "120ms" }}>
+            Pit lane <span className="em-serif text-brand-link">equipment,</span> support and advice.
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-muted-foreground">Official Paoli wheel gun agent: new guns, servicing, advice and air equipment from 2BAR to 300BAR.</p>
-          <div
-            className="reveal revealed mt-10 flex flex-wrap gap-4"
-            style={{ animationDelay: "240ms" }}
-          >
-            <Button asChild size="lg">
-              <Link to="/products">Our Products</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link to="/contact">Contact Us</Link>
-            </Button>
+          <div className="reveal revealed mt-10 grid gap-8 border-t border-border pt-8 md:grid-cols-[1fr_auto] md:items-end" style={{ animationDelay: "240ms" }}>
+            <p className="max-w-xl text-lg text-muted-foreground">Official Paoli wheel gun agent: new guns, servicing, advice and air equipment from 2BAR to 300BAR.</p>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg"><Link to="/products">Our Products</Link></Button>
+              <Button asChild size="lg" variant="outline"><Link to="/contact">Contact Us</Link></Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section-y"><div className="container-x grid gap-12 lg:grid-cols-2"><Reveal><SectionHead eyebrow="Who we are" title="UK based pit equipment specialists"/><p className="mt-6 text-lg leading-relaxed text-muted-foreground">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series. We are the Paoli wheel gun official agent for new sales, servicing and upgrades.</p></Reveal><Reveal className="grid content-center gap-4" delay={120}>{["Official Paoli agent for new sales, servicing and upgrades", "Banbury — close to the teams", "Air driven equipment, from 2BAR to 300BAR"].map(t => <div key={t} className="border border-border p-6 font-display font-semibold">{t}</div>)}</Reveal></div></section>
-      <section className="section-y border-t border-border"><div className="container-x"><div className="flex flex-wrap items-end justify-between gap-6"><SectionHead eyebrow="Products" title="Built for every stop"/><Button asChild variant="outline"><Link to="/products">Our Products <ArrowRight className="size-4"/></Link></Button></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">{["paoli-wheel-guns", "compressors", "fittings", "hoses", "extraction-systems"].map(slug => { const c = categories.find(c => c.slug === slug); return c ? <CategoryTile key={c.slug} category={c}/> : null; })}</div></div></section>
-      <section className="section-y border-y border-border bg-surface"><div className="container-x"><h2 className="text-center text-3xl font-bold md:text-5xl">Engineering you can trust in the pit lane</h2><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5"><div className="border border-border bg-card p-5"><h3 className="font-semibold">Official Paoli agent</h3><p className="mt-3 text-sm text-muted-foreground">New sales, servicing and upgrades.</p></div>{proofPoints.map(p => <div key={p.t} className="border border-border bg-card p-5"><h3 className="font-semibold">{p.t}</h3><p className="mt-3 text-sm text-muted-foreground">{p.d}</p></div>)}</div></div></section>
-      <section className="section-y"><div className="container-x"><SectionHead eyebrow="Services" title="Support that goes beyond the box"/><div className="mt-10 grid gap-6 lg:grid-cols-2">{services.map(s => <article key={s.to} className="grid overflow-hidden border border-border bg-card sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"><img src={s.image} alt="" loading="lazy" className="h-full min-h-48 w-full object-cover"/><div className="p-6"><p className="eyebrow">{s.eyebrow}</p><h3 className="mt-3 text-2xl font-semibold">{s.title}</h3><p className="mt-3 text-muted-foreground">{s.text}</p><Button asChild variant="outline" className="mt-6"><Link to={s.to}>Find out more <ArrowRight className="size-4"/></Link></Button></div></article>)}</div></div></section>
-      <section className="section-y border-t border-border"><div className="container-x grid items-center gap-12 lg:grid-cols-2"><img src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" loading="lazy" className="aspect-[4/3] w-full object-cover"/><div><SectionHead eyebrow="Why CES Europe" title="Pit equipment, support and advice"/><p className="mt-6 text-lg text-muted-foreground">Our small team is based in Banbury, geographically close to many of the UK's top motorsport teams, which makes site visits easy.</p><Button asChild variant="outline" size="lg" className="mt-8"><Link to="/about">About CES Europe</Link></Button></div></div></section>
-      <EnquiryBand call />
+      {/* 02 Who we are — serif opening statement + offset collage */}
+      <section className="section-y overflow-hidden">
+        <div className="container-x grid gap-16 lg:grid-cols-12">
+          <Reveal className="lg:col-span-6">
+            <p className="label-num">01 — Who we are</p>
+            <h2 className="display-xl mt-6 text-5xl md:text-6xl">UK based pit equipment <span className="em-serif text-primary">specialists</span></h2>
+            <p className="mt-10 font-serif text-3xl leading-[1.2] text-deep md:text-4xl">CES Europe Ltd is a UK based pit equipment supplier of wheel gun and associated air driven equipment, from 2BAR to 300BAR, for use in all race series.</p>
+            <p className="mt-6 max-w-lg text-muted-foreground">We are the Paoli wheel gun official agent for new sales, servicing and upgrades.</p>
+            <ul className="mt-10 divide-y divide-border border-y border-border">
+              {["Official Paoli agent for new sales, servicing and upgrades", "Banbury — close to the teams", "Air driven equipment, from 2BAR to 300BAR"].map((t, i) => (
+                <li key={t} className="flex items-baseline gap-6 py-5 font-display font-medium text-deep"><span className="label-num">0{i + 1}</span>{t}</li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal delay={150} className="relative grid h-[560px] grid-cols-6 grid-rows-6 gap-2 lg:col-span-6 lg:mt-24">
+            <Parallax src={pitstop} alt="Pit crew changing a wheel in the pit lane" className="col-span-4 row-span-4" />
+            <Parallax src={servicingPhoto.url} alt="Paoli wheel gun on the servicing bench" className="col-span-2 col-start-5 row-span-3 row-start-2" strength={0.08} />
+            <Parallax src={categories[0]!.image} alt="Paoli wheel guns" className="col-span-3 col-start-3 row-span-2 row-start-5" strength={0.06} />
+            <Swoosh className="absolute -bottom-6 left-0 h-24 text-primary" />
+          </Reveal>
+        </div>
+      </section>
 
+      {/* Typographic band running off the edge */}
+      <section aria-hidden="true" className="overflow-hidden border-y border-border py-8">
+        <div className="band-run flex w-max whitespace-nowrap">
+          {[0, 1].map((k) => (
+            <span key={k} className="display-xl pr-16 text-[14vw] text-deep md:text-[9rem]">
+              CES Europe, <span className="em-serif text-primary">Official</span> Paoli Agent —&nbsp;
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* 03 Products — single ruled typographic list with image reveal */}
+      <section className="section-y">
+        <div className="container-x">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div><p className="label-num">02 — Products</p><h2 className="display-xl mt-6 text-5xl md:text-7xl">Built for <span className="em-serif text-primary">every</span> stop</h2></div>
+            <Button asChild variant="outline"><Link to="/products">Our Products <ArrowRight /></Link></Button>
+          </div>
+          <ul className="mt-16 border-t border-border">
+            {featured.map((c, i) => (
+              <li key={c.slug} className="border-b border-border">
+                <Link to="/products/$category" params={{ category: c.slug }} className="group grid grid-cols-[3rem_1fr_auto] items-center gap-6 py-7 md:grid-cols-[4rem_1fr_14rem_auto] md:py-9">
+                  <span className="label-num">0{i + 1}</span>
+                  <span className="display-xl text-3xl text-deep transition-all duration-500 group-hover:translate-x-3 group-hover:text-primary md:text-5xl">{c.name}</span>
+                  <span className="hidden h-20 overflow-hidden md:block"><img src={c.image} alt="" loading="lazy" className="img-hover h-full w-full scale-110 object-cover opacity-0 transition-opacity duration-500 group-hover:scale-100 group-hover:opacity-100" /></span>
+                  <ArrowRight className="size-6 text-primary transition-transform duration-500 group-hover:-rotate-45" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 04 Statement over full-bleed cinematic image */}
+      <section className="inverse relative overflow-hidden">
+        <Parallax src={servicingPhoto.url} alt="" className="absolute inset-0" strength={0.15} />
+        <div className="absolute inset-0 bg-deep/80 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-overlay" />
+        <div className="container-x relative py-32 md:py-48">
+          <Reveal>
+            <p className="label-num">03 — Engineering</p>
+            <h2 className="mt-8 max-w-5xl font-serif text-5xl italic leading-[1.05] md:text-8xl">Engineering you can trust in the pit lane.</h2>
+          </Reveal>
+          <div className="mt-20 grid border-t border-border sm:grid-cols-2 lg:grid-cols-5 lg:divide-x lg:divide-border">
+            {[{ t: "Official Paoli agent", d: "New sales, servicing and upgrades." }, ...proofPoints].map((p, i) => (
+              <Reveal key={p.t} delay={i * 90} className="border-b border-border py-8 lg:border-b-0 lg:px-6 lg:first:pl-0">
+                <h3 className="font-display text-lg font-semibold">{p.t}</h3>
+                <p className="mt-3 text-sm text-muted-foreground">{p.d}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 05 Services — staggered large panels */}
+      <section className="section-y">
+        <div className="container-x">
+          <p className="label-num">04 — Services</p>
+          <h2 className="display-xl mt-6 max-w-3xl text-5xl md:text-7xl">Support that goes <span className="em-serif text-primary">beyond</span> the box</h2>
+          <div className="mt-20 grid gap-20 lg:grid-cols-2 lg:gap-12">
+            {services.map((s, i) => (
+              <Reveal key={s.to} delay={i * 150} className={i === 1 ? "lg:mt-40" : ""}>
+                <Link to={s.to} className="group block">
+                  <div className="overflow-hidden"><img src={s.image} alt="" loading="lazy" className="img-hover aspect-[4/5] w-full object-cover group-hover:scale-105" /></div>
+                  <div className="relative -mt-16 ml-6 bg-background p-8 pr-0 md:ml-12">
+                    <p className="label-num">{s.eyebrow}</p>
+                    <h3 className="mt-4 font-display text-3xl font-semibold text-deep">{s.title}</h3>
+                    <p className="mt-4 max-w-md text-muted-foreground">{s.text}</p>
+                    <span className="mt-6 inline-flex items-center gap-3 border-b border-primary pb-1 font-display text-xs uppercase tracking-[0.18em] text-primary">Find out more <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 06 Why CES — asymmetric split with overlap */}
+      <section className="section-y bg-surface">
+        <div className="container-x grid items-center gap-12 lg:grid-cols-12">
+          <Parallax src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" className="aspect-[4/3] lg:col-span-7" />
+          <Reveal className="lg:col-span-5 lg:-ml-24 lg:bg-background lg:p-12 relative">
+            <p className="label-num">05 — Why CES Europe</p>
+            <h2 className="display-xl mt-6 text-4xl md:text-5xl">Pit equipment, support and <span className="em-serif text-primary">advice</span></h2>
+            <p className="mt-6 text-lg text-muted-foreground">Our small team is based in Banbury, geographically close to many of the UK's top motorsport teams, which makes site visits easy.</p>
+            <Button asChild variant="outline" size="lg" className="mt-8"><Link to="/about">About CES Europe</Link></Button>
+          </Reveal>
+        </div>
+      </section>
+
+      <EnquiryBand call />
     </>
   );
 }

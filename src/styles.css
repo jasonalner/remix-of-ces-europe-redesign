@@ -9,6 +9,7 @@
 @theme inline {
   --font-display: "Poppins", system-ui, sans-serif;
   --font-sans: "Roboto", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
   --radius-sm: calc(var(--radius) - 1px);
   --radius-md: var(--radius);
   --radius-lg: var(--radius);
@@ -128,3 +129,14 @@
 @utility reveal { opacity: 0; }
 @utility revealed { animation: reveal 0.8s cubic-bezier(.2,.7,.2,1) forwards; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; } .revealed { animation: none; } }
+
+/* Editorial system */
+@utility em-serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -0.01em; }
+@utility display-xl { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; line-height: 0.92; letter-spacing: -0.03em; }
+@utility label-num { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--eyebrow); }
+@keyframes slow-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+@utility hero-zoom { animation: slow-zoom 9s cubic-bezier(.2,.6,.2,1) forwards; }
+@keyframes band { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@utility band-run { animation: band 40s linear infinite; }
+@utility img-hover { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) { .hero-zoom, .band-run { animation: none; } .img-hover { transition: none; } }
