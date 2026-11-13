@@ -11,6 +11,7 @@ import { Swoosh } from "@/components/site/Swoosh";
 import servicingPhoto from "@/assets/ces/servicing.jpg.asset.json";
 import hero from "@/assets/ces/alpine-pit-stop.jpeg.asset.json";
 import pitstop from "@/assets/pitstop.jpg";
+import pitLane from "@/assets/hero.jpg";
 
 const localBusiness = {
   "@context": "https://schema.org",
@@ -59,13 +60,15 @@ const services = [
     title: "Race-ready guns, torque tested and certified",
     text: "Full service, diagnosis and repair of Paoli wheel guns with OEM parts, and a performance graph against every serial number.",
     image: servicingPhoto.url,
+    alt: "A Paoli wheel gun being serviced on the bench",
   },
   {
     to: "/services/advice",
     eyebrow: "Advice and consultation",
     title: "The right kit for your series",
     text: "Talk to us about which gun suits your needs and how to spec air driven equipment for your race series.",
-    image: pitstop,
+    image: pitLane,
+    alt: "Pit crew at work in the pit lane at dusk",
   },
 ] as const;
 
@@ -161,41 +164,41 @@ function Index() {
         </div>
       </section>
 
-      {/* 05 Services — staggered large panels */}
-      <section className="section-y">
+      {/* 04 Services — overlapping image and box rows */}
+      <section className="section-y bg-surface">
         <div className="container-x">
           <p className="label-num">04 — Services</p>
           <h2 className="display-xl mt-6 max-w-3xl text-5xl md:text-7xl">Support that goes <span className="text-primary">beyond</span> the box</h2>
-          <div className="mt-16 border-t border-border md:mt-24">
-            {services.map((s, i) => (
-              <Reveal key={s.to} className="border-b border-border">
-                <Link to={s.to} className="group grid items-center gap-8 py-12 md:py-20 lg:grid-cols-12 lg:gap-16">
-                  <div className={`relative overflow-hidden lg:col-span-7 ${i === 1 ? "lg:order-2" : ""}`}>
-                    <img src={s.image} alt="" loading="lazy" className="img-hover aspect-[3/2] w-full object-cover group-hover:scale-105" />
-                    <span className="absolute left-0 top-0 bg-deep px-4 py-3 font-display text-xs font-medium tracking-[0.28em] text-white">0{i + 1}</span>
-                  </div>
-                  <div className={`lg:col-span-5 ${i === 1 ? "lg:order-1" : ""}`}>
-                    <p className="label-num">{s.eyebrow}</p>
-                    <h3 className="mt-5 font-display text-2xl font-semibold leading-tight text-deep transition-colors duration-300 group-hover:text-primary md:text-4xl">{s.title}</h3>
-                    <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">{s.text}</p>
-                    <span className="mt-8 inline-flex items-center gap-3 border-b border-primary pb-1 font-display text-xs uppercase tracking-[0.18em] text-primary">Find out more <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-2" /></span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+          <div className="mt-16 space-y-16 md:mt-24 md:space-y-28">
+            {services.map((s, i) => {
+              const flip = i === 1;
+              return (
+                <div key={s.to} className="grid items-center gap-8 lg:grid-cols-12 lg:gap-0">
+                  <Parallax src={s.image} alt={s.alt} className={`aspect-[4/3] lg:col-span-7 ${flip ? "lg:order-2" : ""}`} />
+                  <Reveal className={`relative z-10 lg:col-span-5 lg:bg-background lg:p-12 ${flip ? "lg:order-1 lg:-mr-24" : "lg:-ml-24"}`}>
+                    <p className="label-num">{`0${i + 1}`} — {s.eyebrow}</p>
+                    <h3 className="display-xl mt-6 text-3xl md:text-4xl">{s.title}</h3>
+                    <p className="mt-6 text-lg text-muted-foreground">{s.text}</p>
+                    <Button asChild variant="outline" size="lg" className="mt-8"><Link to={s.to}>Find out more</Link></Button>
+                  </Reveal>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 06 Why CES — asymmetric split with overlap */}
-      <section className="section-y bg-surface">
-        <div className="container-x grid items-center gap-12 lg:grid-cols-12">
-          <Parallax src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" className="aspect-[4/3] lg:col-span-7" />
-          <Reveal className="lg:col-span-5 lg:-ml-24 lg:bg-background lg:p-12 relative">
+      {/* 05 Why CES — full-bleed image, gradient, content on top */}
+      <section className="inverse relative isolate flex min-h-[85svh] items-center overflow-hidden bg-background">
+        <Parallax src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" className="absolute inset-0 -z-10" strength={0.1} />
+        <div className="absolute inset-0 -z-10 bg-overlay-side" />
+        <div className="absolute inset-0 -z-10 bg-overlay opacity-25" />
+        <div className="container-x py-24 md:py-32">
+          <Reveal className="max-w-2xl">
             <p className="label-num">05 — Why CES Europe</p>
-            <h2 className="display-xl mt-6 text-4xl md:text-5xl">Pit equipment, support and <span className="text-primary">advice</span></h2>
-            <p className="mt-6 text-lg text-muted-foreground">Our small team is based in Banbury, geographically close to many of the UK's top motorsport teams, which makes site visits easy.</p>
-            <Button asChild variant="outline" size="lg" className="mt-8"><Link to="/about">About CES Europe</Link></Button>
+            <h2 className="display-xl mt-6 text-4xl text-foreground md:text-6xl">Pit equipment, support and <span className="text-brand-link">advice</span></h2>
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl">Our small team is based in Banbury, geographically close to many of the UK's top motorsport teams, which makes site visits easy.</p>
+            <Button asChild variant="outline" size="lg" className="mt-10"><Link to="/about">About CES Europe</Link></Button>
           </Reveal>
         </div>
       </section>
