@@ -192,6 +192,7 @@ function Index() {
       <section className="inverse relative isolate flex min-h-[85svh] items-center overflow-hidden bg-background">
         <Parallax src={pitstop} alt="Pit crew changing a wheel on a single-seater race car in the pit lane" className="absolute inset-0 -z-10" strength={0.1} />
         <div className="absolute inset-0 -z-10 bg-overlay-side" />
+        <div className="absolute inset-0 -z-10 bg-background/55 lg:hidden" />
         <div className="absolute inset-0 -z-10 bg-overlay opacity-25" />
         <div className="container-x py-24 md:py-32">
           <Reveal className="max-w-2xl">
